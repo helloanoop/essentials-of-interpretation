@@ -52,6 +52,18 @@ class Eva {
       }
     }
 
+    // while loop
+    if(exp[0] === 'while') {
+      const [_tag, condition, body] = exp;
+      let result;
+
+      while(this.eval(condition, env)) {
+        result = this.eval(body, env);
+      }
+
+      return result;
+    }
+
     // >
     if(exp[0] === '>') {
       return this.eval(exp[1], env) > this.eval(exp[2], env);
@@ -88,7 +100,7 @@ class Eva {
     if(exp[0] === 'set') {
       const [_, name, value] = exp;
 
-      return env.assign(name, value);
+      return env.assign(name, this.eval(value, env));
     }
 
     // variable access/lookup

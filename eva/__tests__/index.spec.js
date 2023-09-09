@@ -8,6 +8,7 @@ const tests = [
   require('./variables.spec'),
   require('./blocks.spec'),
   require('./if.spec'),
+  require('./while.spec'),
 ];
 
 const eva = new Eva(new Environment({
