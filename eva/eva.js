@@ -42,6 +42,41 @@ class Eva {
       return this._evalBlock(exp, blockEnv);
     }
 
+    // if cond
+    if(exp[0] === 'if') {
+      const [_tag, condition, consequent, alternate] = exp;
+      if(this.eval(condition, env)) {
+        return this.eval(consequent, env)
+      } else {
+        return this.eval(alternate, env)
+      }
+    }
+
+    // >
+    if(exp[0] === '>') {
+      return this.eval(exp[1], env) > this.eval(exp[2], env);
+    }
+
+    // >=
+    if(exp[0] === '>=') {
+      return this.eval(exp[1], env) >= this.eval(exp[2], env);
+    }
+
+    // <
+    if(exp[0] === '<') {
+      return this.eval(exp[1], env) < this.eval(exp[2], env);
+    }
+
+    // <=
+    if(exp[0] === '<=') {
+      return this.eval(exp[1], env) <= this.eval(exp[2], env);
+    }
+
+    // =
+    if(exp[0] === '=') {
+      return this.eval(exp[1], env) === this.eval(exp[2], env);
+    }
+
     // variable declaration
     if(exp[0] === 'var') {
       const [_, name, value] = exp;

@@ -7,6 +7,7 @@ const tests = [
   require('./math.spec'),
   require('./variables.spec'),
   require('./blocks.spec'),
+  require('./if.spec'),
 ];
 
 const eva = new Eva(new Environment({
