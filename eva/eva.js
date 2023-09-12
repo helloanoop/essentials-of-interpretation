@@ -69,6 +69,19 @@ class Eva {
       return env.assign(name, this.eval(value, env));
     }
 
+    // function declaration
+    if(exp[0] === 'def') {
+      const [_, name, params, body] = exp;
+
+      const fn = {
+        params,
+        body,
+        env // closure
+      };
+
+      return env.define(name, fn);
+    }
+
     // variable access/lookup
     if(this._isVariableName(exp)) {
       return env.lookup(exp);
@@ -83,9 +96,29 @@ class Eva {
       if(typeof fn === 'function') {
         return fn(...args);
       }
+
+      const activationRecord = {};
+      fn.params.forEach((param, index) => {
+        activationRecord[param] = args[index];
+      });
+
+      const activationEnv = new Environment(
+        activationRecord,
+        fn.env
+      );
+
+      return this._evalBody(fn.body, activationEnv);
     }
 
     throw `Unimplemented: ${JSON.stringify(exp)}`;
+  }
+
+  _evalBody(body, env) {
+    if(body[0] === 'begin') {
+      return this._evalBlock(body, env);
+    }
+
+    return this.eval(body, env);
   }
 
   _evalBlock(block, env) {
