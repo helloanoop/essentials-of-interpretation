@@ -1,5 +1,4 @@
 const Eva = require("../eva");
-const Environment = require("../environment");
 
 // run parser tests
 require('./parser.spec');
@@ -11,16 +10,10 @@ const tests = [
   require('./blocks.spec'),
   require('./if.spec'),
   require('./while.spec'),
+  require('./native-functions.spec'),
 ];
 
-const eva = new Eva(new Environment({
-  null: null,
-  true: true,
-  false: false,
-  VERSION: '0.1'
-}));
-
-tests.forEach(test => test(eva));
+tests.forEach(test => test(new Eva()));
 
 
 console.log("All interpreter tests passed");

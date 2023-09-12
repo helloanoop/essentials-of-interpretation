@@ -12,6 +12,9 @@ const {
 } = require('arcsecond');
 
 const expression = choice([
+  str('<='),
+  str('>='),
+  str('!='),
   char('+'),
   char('-'),
   char('*'),
@@ -19,9 +22,6 @@ const expression = choice([
   char('<'),
   char('>'),
   char('='),
-  str('<='),
-  str('>='),
-  str('!='),
   many1(choice([
     letters,
     digits
@@ -62,8 +62,7 @@ const parser = recursiveParser(() => choice([
 // Debugging
 // let input = `
 // (begin
-//   (var x 10)
-//   (var y 20)
+//   (<= 5 5)
 // )
 // `;
 // console.log(
