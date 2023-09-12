@@ -1,6 +1,8 @@
-const assert = require("assert");
 const Eva = require("../eva");
 const Environment = require("../environment");
+
+// run parser tests
+require('./parser.spec');
 
 const tests = [
   require('./self-eval.spec'),
@@ -21,4 +23,4 @@ const eva = new Eva(new Environment({
 tests.forEach(test => test(eva));
 
 
-console.log("All tests passed");
+console.log("All interpreter tests passed");
