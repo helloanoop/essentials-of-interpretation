@@ -69,6 +69,19 @@ class Eva {
       return env.assign(name, this.eval(value, env));
     }
 
+    // lambda expression
+    if(exp[0] === 'lambda')  {
+      const [_, params, body] = exp;
+
+      const fn = {
+        params,
+        body,
+        env // closure
+      };
+
+      return fn;
+    }
+
     // function declaration
     if(exp[0] === 'def') {
       const [_, name, params, body] = exp;

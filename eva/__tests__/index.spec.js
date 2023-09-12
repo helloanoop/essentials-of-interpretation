@@ -12,6 +12,7 @@ const tests = [
   require('./while.spec'),
   require('./native-functions.spec'),
   require('./user-defined-functions.spec'),
+  require('./lambda-functions.spec'),
 ];
 
 tests.forEach(test => test(new Eva()));
